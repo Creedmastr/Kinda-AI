@@ -25,7 +25,7 @@ fn main() {
             two_vector_average(first_trimester_avg, second_trimester_avg),
             third_trimester_avg,
             20.0,
-            0.01
+            0.0001
         ).to_neural_network().predict(7.7)
     );
 }
