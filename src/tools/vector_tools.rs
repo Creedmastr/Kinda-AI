@@ -1,7 +1,6 @@
-use crate::{
-    average,
-    tools::{accuracy, is_closer_to},
-};
+use crate::tools::{tools::accuracy, tools::is_closer_to};
+
+use super::tools::average;
 
 // Various tools for manipulating Vector as it is the most used type in the code
 
@@ -29,7 +28,12 @@ pub fn closest_value_index(vec: Vec<f64>, value: f64) -> usize {
 }
 
 // Accuracy of a vector over another vector(for each same index compared to another)
-pub fn vector_accuracy(vec1: Vec<f64>, vec2: Vec<f64>, max_value: f64) -> f64 {
+pub fn vector_accuracy(
+    vec1: Vec<f64>,
+    vec2: Vec<f64>,
+    max_value: f64,
+    is_average: bool,
+) -> Vec<f64> {
     if vec1.len() != vec2.len() {
         panic!("Arguments don't have the same number of elements")
     }
@@ -45,7 +49,11 @@ pub fn vector_accuracy(vec1: Vec<f64>, vec2: Vec<f64>, max_value: f64) -> f64 {
         buffer += 1;
     }
 
-    vec_average(&result)
+    if is_average == true {
+        vec![vec_average(&result)]
+    } else {
+        result
+    }
 }
 
 // Average of two vectors (from items with the same index)

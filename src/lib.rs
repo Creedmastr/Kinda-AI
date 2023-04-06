@@ -3,7 +3,6 @@
 
 mod ai;
 mod tools;
-mod vector_tools;
 
 use ai::train_ai::*;
 use std::vec;
@@ -11,7 +10,7 @@ use tools::*;
 
 use crate::ai::{ai::ToAI, test_ai::test_ai};
 
-fn main() {
+pub fn run() {
     let first_trimester_avg = vec![
         15.5, 16.6, 19.2, 19.8, 12.2, 14.4, 18.2, 7.1, 10.2, 2.0, 0.1, 1.2,
     ];
@@ -25,9 +24,10 @@ fn main() {
     println!(
         "{:#?}",
         test_ai(
-            train_ai(first_trimester_avg, third_trimester_avg, 20.0, 0.001).to_ai(),
+            train_ai(first_trimester_avg, third_trimester_avg, 20.0, 0.00001).to_ai(),
             test_data_first,
-            test_data_second
+            test_data_second,
+            false
         )
     );
 }

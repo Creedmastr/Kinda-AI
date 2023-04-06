@@ -1,4 +1,4 @@
-use crate::tools::is_closer_to;
+use crate::tools::tools::is_closer_to;
 
 pub fn train_ai(
     input_vec: Vec<f64>,
@@ -25,7 +25,8 @@ pub fn train_ai(
             let mut weighed_input: f64 = input_vec[buffer] * weight;
             weight += generation_number;
 
-            if weighed_input > max_value { // If exceeds the maximum value reset it
+            if weighed_input > max_value {
+                // If exceeds the maximum value reset it
                 weighed_input = max_value;
             }
 
