@@ -1,11 +1,11 @@
-use crate::{tools::is_closer_to, vector_tools::vector_accuracy};
+use crate::tools::is_closer_to;
 
 pub fn train_ai(
     input_vec: Vec<f64>,
     output_vec: Vec<f64>,
     max_value: f64,
     generation_number: f64,
-) -> (Vec<f64>, Vec<f64>, f64, f64) {
+) -> (Vec<f64>, Vec<f64>, f64) {
     let mut current_result: f64;
     let mut weight: f64;
     let mut results_vec: Vec<f64> = vec![];
@@ -14,6 +14,8 @@ pub fn train_ai(
     let mut buffer = 0;
 
     current_result = 0.0;
+
+    print!("<");
 
     for _item in input_vec.clone() {
         weight = 0.4;
@@ -40,12 +42,10 @@ pub fn train_ai(
 
         // current_result = 0.0;
         buffer += 1;
+        print!("=");
     }
 
-    (
-        results_vec.clone(),
-        weight_vec,
-        vector_accuracy(results_vec, output_vec, 20.0),
-        max_value,
-    )
+    print!(">\n");
+
+    (results_vec.clone(), weight_vec, max_value)
 }

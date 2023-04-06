@@ -1,10 +1,15 @@
-use crate::vector_tools;
+use std::fs::File;
+use std::io::BufReader;
 
-#[derive(Debug, Default, Clone)]
+use crate::vector_tools;
+use serde;
+use serde::Deserialize;
+use serde::Serialize;
+
+#[derive(Debug, Default, Clone, Serialize, Deserialize)]
 pub struct AI {
     results: Vec<f64>,
     weight: Vec<f64>,
-    accuracy: f64,
     max_value: f64,
 }
 
@@ -12,13 +17,12 @@ pub trait ToAI {
     fn to_ai(&self) -> AI;
 }
 
-impl ToAI for (Vec<f64>, Vec<f64>, f64, f64) {
+impl ToAI for (Vec<f64>, Vec<f64>, f64) {
     fn to_ai(&self) -> AI {
         let result = AI {
             results: self.0.clone(),
             weight: self.1.clone(),
-            accuracy: self.2,
-            max_value: self.3,
+            max_value: self.2,
         };
 
         result
@@ -38,6 +42,18 @@ impl AI {
         }
 
         weighted_value
+    }
+
+    pub fn save(&self, filename: &str) {
+        let file = File::create(filename).unwrap();
+        serde_json::to_writer(file, self).unwrap();
+    }
+
+    pub fn load_ai_from_file(filename: &str) -> AI {
+        let file = File::open(filename).unwrap();
+        let reader = BufReader::new(file);
+        let ai = serde_json::from_reader(reader).unwrap();
+        ai
     }
 }
 

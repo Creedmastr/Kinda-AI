@@ -1,15 +1,15 @@
 #![allow(non_snake_case)]
 #![allow(dead_code)]
 
-mod neural;
+mod ai;
 mod tools;
 mod vector_tools;
 
-use neural::train_ai::*;
+use ai::train_ai::*;
 use std::vec;
 use tools::*;
 
-use crate::neural::{ai::ToAI, test_ai::test_ai};
+use crate::ai::{ai::ToAI, test_ai::test_ai};
 
 fn main() {
     let first_trimester_avg = vec![
@@ -25,9 +25,23 @@ fn main() {
     println!(
         "{:#?}",
         test_ai(
-            train_ai(first_trimester_avg, third_trimester_avg, 20.0, 0.001,).to_ai(),
+            train_ai(first_trimester_avg, third_trimester_avg, 20.0, 0.001).to_ai(),
             test_data_first,
             test_data_second
         )
     );
 }
+
+// If you need to save the AI model
+/*train_ai(first_trimester_avg, third_trimester_avg, 20.0, 0.001)
+    .to_ai()
+    .save("./ai");
+
+println!(
+    "{:#?}",
+    test_ai(
+        AI::load_ai_from_file("./ai"),
+        test_data_first,
+        test_data_second
+    )
+); */
