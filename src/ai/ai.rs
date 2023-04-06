@@ -30,6 +30,7 @@ impl ToAI for (Vec<f64>, Vec<f64>, f64) {
 }
 
 impl AI {
+    // Make a function using an AI model
     pub fn predict(&self, value: f64) -> f64 {
         let value_index = vector_tools::closest_value_index(self.results.clone(), value);
         let value_weights = self.weight[value_index];
@@ -44,6 +45,7 @@ impl AI {
         weighted_value
     }
 
+    // Save it to the disk
     pub fn save(&self, filename: &str) {
         let file = File::create(filename).unwrap();
         serde_json::to_writer(file, self).unwrap();
@@ -55,10 +57,4 @@ impl AI {
         let ai = serde_json::from_reader(reader).unwrap();
         ai
     }
-}
-
-fn test_split(mut vec: Vec<f64>, split_value: f64) -> (Vec<f64>, Vec<f64>) {
-    let train_data = vec.split_off((vec.len() as f64 * (1.0 - split_value)) as usize);
-
-    (train_data, vec)
 }

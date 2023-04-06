@@ -1,3 +1,5 @@
+// Just various tools I use in the code
+
 pub fn average(number1: f64, number2: f64) -> f64 {
     (number1 + number2) / 2.0
 }

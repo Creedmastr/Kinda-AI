@@ -3,6 +3,8 @@ use crate::{
     tools::{accuracy, is_closer_to},
 };
 
+// Various tools for manipulating Vector as it is the most used type in the code
+
 pub fn vec_average(values: &Vec<f64>) -> f64 {
     let sum: f64 = values.iter().sum();
     let avg: f64 = sum / values.len() as f64;
@@ -26,6 +28,7 @@ pub fn closest_value_index(vec: Vec<f64>, value: f64) -> usize {
     result
 }
 
+// Accuracy of a vector over another vector(for each same index compared to another)
 pub fn vector_accuracy(vec1: Vec<f64>, vec2: Vec<f64>, max_value: f64) -> f64 {
     if vec1.len() != vec2.len() {
         panic!("Arguments don't have the same number of elements")
@@ -42,11 +45,10 @@ pub fn vector_accuracy(vec1: Vec<f64>, vec2: Vec<f64>, max_value: f64) -> f64 {
         buffer += 1;
     }
 
-    // println!("{:#?}", &result);
-
     vec_average(&result)
 }
 
+// Average of two vectors (from items with the same index)
 pub fn two_vector_average(vec1: Vec<f64>, vec2: Vec<f64>) -> Vec<f64> {
     if vec1.len() != vec2.len() {
         panic!("Arguments don't have the same number of elements")

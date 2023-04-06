@@ -5,6 +5,7 @@ use super::ai::AI;
 pub fn test_ai(ai: AI, test_data: Vec<f64>, test_data_output: Vec<f64>) -> f64 {
     let mut predictions = vec![];
 
+    // Uses arrows etc. for showing progress (on low-end machines or large data)
     print!("<");
 
     for item in test_data {
@@ -14,7 +15,7 @@ pub fn test_ai(ai: AI, test_data: Vec<f64>, test_data_output: Vec<f64>) -> f64 {
 
     print!(">\n");
 
-    let accuracy = vector_accuracy(predictions, test_data_output, 20.0);
+    let accuracy = vector_accuracy(predictions, test_data_output, 20.0); // Accuracy
 
     accuracy
 }
