@@ -2,6 +2,10 @@
 name = "dumb_ai"
 version = "1.0.0"
 edition = "2021"
+authors = ["Creedmastr"]
+description = "My own AI, which doesn't work that great, but it still works!"
+license-file = "LICENSE"
+keywords = ["ai", "simple-to-use"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
