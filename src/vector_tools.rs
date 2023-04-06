@@ -39,7 +39,7 @@ pub fn vector_accuracy(vec1: Vec<f64>, vec2: Vec<f64>, max_value: f64) -> f64 {
         buffer += 1;
     }
 
-    println!("{:#?}", &result);
+    // println!("{:#?}", &result);
 
     vec_average(&result)
 }
