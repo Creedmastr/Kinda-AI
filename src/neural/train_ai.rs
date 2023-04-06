@@ -1,6 +1,6 @@
 use crate::{vector_tools::vector_accuracy, tools::is_closer_to};
 
-pub fn train_neural_network(input_vec: Vec<f64>, output_vec: Vec<f64>, max_value: f64, generation_number: f64) -> (Vec<f64>, Vec<f64>, f64, f64) {
+pub fn train_ai(input_vec: Vec<f64>, output_vec: Vec<f64>, max_value: f64, generation_number: f64) -> (Vec<f64>, Vec<f64>, f64, f64) {
     let mut current_result: f64;
     let mut weight: f64;
     let mut results_vec: Vec<f64> = vec![];
@@ -25,7 +25,7 @@ pub fn train_neural_network(input_vec: Vec<f64>, output_vec: Vec<f64>, max_value
                 current_result = weighed_input;
             }
 
-            if weight > 2.0 {
+            if weight > 5.0 {
                 break
             }
         }
