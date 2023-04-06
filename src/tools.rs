@@ -8,7 +8,6 @@ pub fn accuracy(actual: f64, expected: f64, max_value: f64) -> f64 {
     accuracy
 }
 
-
 pub fn is_closer_to(f: f64, a: f64, b: f64) -> bool {
     let diff_a = (f - a).abs();
     let diff_b = (f - b).abs();

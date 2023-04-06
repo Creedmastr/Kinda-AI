@@ -4,20 +4,20 @@ use crate::vector_tools;
 pub struct AI {
     results: Vec<f64>,
     weight: Vec<f64>,
-    accuracy: Vec<f64>,
-    max_value: f64
+    accuracy: f64,
+    max_value: f64,
 }
 
 pub trait ToAI {
-    fn to_neural_network(&self) -> AI;
+    fn to_ai(&self) -> AI;
 }
 
-impl ToAI for (Vec<f64>, Vec<f64>, Vec<f64>, f64) {
-    fn to_neural_network(&self) -> AI {
+impl ToAI for (Vec<f64>, Vec<f64>, f64, f64) {
+    fn to_ai(&self) -> AI {
         let result = AI {
             results: self.0.clone(),
             weight: self.1.clone(),
-            accuracy: self.2.clone(),
+            accuracy: self.2,
             max_value: self.3,
         };
 

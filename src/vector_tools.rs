@@ -1,4 +1,7 @@
-use crate::{average, tools::{accuracy, is_closer_to}};
+use crate::{
+    average,
+    tools::{accuracy, is_closer_to},
+};
 
 pub fn vec_average(values: &Vec<f64>) -> f64 {
     let sum: f64 = values.iter().sum();
