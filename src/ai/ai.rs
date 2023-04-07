@@ -34,11 +34,17 @@ impl AI {
     pub fn predict(&self, value_vec: Vec<f64>) -> Vec<f64> {
         let value_index = vector_tools::index_of_closest_vec_in_vec(self.results.clone(), value_vec.clone());
         let value_weights = self.weight[value_index].clone();
-        let weighted_value = 0.0;
         let mut prediction = vec![];
+        let mut buffer = 0;
 
         for item in value_vec {
-            prediction.push(item * value_weights[value_index])
+            if item * value_weights[buffer] > self.max_value.clone() {
+                prediction.push(self.max_value)
+            } else {
+                prediction.push(item * value_weights[buffer])
+            }
+
+            buffer += 1;
         }
 
         prediction

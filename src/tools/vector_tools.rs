@@ -56,12 +56,12 @@ pub fn vector_accuracy(
 }
 
 // Accuracy of a vector over another vector(for each same index compared to another)
-pub fn vector_vector_accuracy(vec1: Vec<Vec<f64>>, vec2: Vec<Vec<f64>>, max_value: f64) -> Vec<Vec<f64>> {
+pub fn vector_vector_accuracy(vec1: Vec<Vec<f64>>, vec2: Vec<Vec<f64>>, max_value: f64, is_averaged: bool) -> Vec<Vec<f64>> {
     let mut buffer = 0;
     let mut result: Vec<Vec<f64>> = vec![];
 
     for _i in vec1.clone() {
-        let item_to_add = vector_accuracy(vec1[buffer].clone(), vec2[buffer].clone(), max_value, false);
+        let item_to_add = vector_accuracy(vec1[buffer].clone(), vec2[buffer].clone(), max_value, is_averaged);
 
         result.push(item_to_add);
 
