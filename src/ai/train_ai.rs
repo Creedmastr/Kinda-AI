@@ -1,56 +1,71 @@
 use crate::tools::tools::is_closer_to;
 
 pub fn train_ai(
-    input_vec: Vec<f64>,
-    output_vec: Vec<f64>,
+    input_vec: Vec<Vec<f64>>,
+    output_vec: Vec<Vec<f64>>,
     max_value: f64,
     generation_number: f64,
-) -> (Vec<f64>, Vec<f64>, f64) {
-    // Initialise all the mutable variables
+) -> (Vec<Vec<f64>>, Vec<Vec<f64>>, f64) {
     let mut current_result: f64 = 0.0;
     let mut weight: f64;
-    let mut results_vec: Vec<f64> = vec![];
-    let mut weight_vec: Vec<f64> = vec![];
+    let mut results_vec: Vec<Vec<f64>> = vec![];
+    let mut weight_vec: Vec<Vec<f64>> = vec![];
     let mut current_result_weight: f64 = 0.0;
-    let mut buffer = 0;
+    let mut inferior_buffer = 0;
+    let mut superior_buffer = 0;
 
     print!("<");
 
-    for _item in input_vec.clone() {
-        // Reset weight
-        weight = 0.0;
+    for item in input_vec {
+        let mut current_weight_vec: Vec<f64> = vec![];
+        let mut current_result_vec: Vec<f64> = vec![];
 
-        // Finds the exact weights to get from each element to their equivalent
-        loop {
-            let mut weighed_input: f64 = input_vec[buffer] * weight;
-            weight += generation_number;
+        for &input in &item {
+            weight = 0.0;
 
-            if weighed_input > max_value {
-                // If exceeds the maximum value reset it
-                weighed_input = max_value;
+            loop {
+                let mut weighed_input = input * weight;
+                weight += generation_number;
+
+                if weighed_input > max_value {
+                    weighed_input = max_value;
+                }
+
+                if superior_buffer >= output_vec.len() {
+                    superior_buffer = 0;
+                }
+
+                if inferior_buffer >= item.len() {
+                    inferior_buffer = 0;
+                }
+
+                if is_closer_to(output_vec[superior_buffer][inferior_buffer], weighed_input, current_result) {
+                    current_result_weight = weight;
+                    current_result = weighed_input;
+                }
+
+                if weight > 5.0 {
+                    break;
+                }
             }
 
-            // If the weighed number is closer to the real number, then set the current 'best' score to it
-            if is_closer_to(output_vec[buffer], weighed_input, current_result) {
-                current_result_weight = weight;
-                current_result = weighed_input;
-            }
+            current_weight_vec.push(current_result_weight);
+            current_result_vec.push(current_result);
 
-            // Sets a limit to the loop
-            if weight > 5.0 {
-                break;
-            }
+            inferior_buffer += 1;
         }
-        // Gets the weight and the results vector with the same index (important for later)
-        weight_vec.push(current_result_weight);
-        results_vec.push(current_result);
-        current_result = 0.0; // resets current_result
 
-        buffer += 1; // Ups the buffer
-        print!("="); // Show the progress
+        superior_buffer += 1;
+
+        weight_vec.push(current_weight_vec);
+        results_vec.push(current_result_vec);
+        current_result = 0.0;
+
+        inferior_buffer = 0;
+        print!("=");
     }
 
     print!(">\n");
 
-    (results_vec.clone(), weight_vec, max_value)
+    (results_vec, weight_vec, max_value)
 }

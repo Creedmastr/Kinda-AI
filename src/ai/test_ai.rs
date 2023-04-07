@@ -1,14 +1,14 @@
-use crate::vector_tools::vector_accuracy;
+use crate::{vector_tools::vector_accuracy, tools::vector_tools::vector_vector_accuracy};
 
 use super::ai::AI;
 
 pub fn test_ai(
     ai: AI,
-    test_data: Vec<f64>,
-    test_data_output: Vec<f64>,
-    is_averaged: bool,
-) -> Vec<f64> {
+    test_data: Vec<Vec<f64>>,
+    test_data_output: Vec<Vec<f64>>,
+) -> Vec<Vec<f64>> {
     let mut predictions = vec![];
+    let mut accuracy: Vec<Vec<f64>> = vec![];
 
     // Uses arrows etc. for showing progress (on low-end machines or large data)
     print!("<");
@@ -20,5 +20,5 @@ pub fn test_ai(
 
     print!(">\n");
 
-    vector_accuracy(predictions, test_data_output, 20.0, is_averaged) // Accuracy
+    vector_vector_accuracy(predictions, test_data_output, 20.0) // Accuracy
 }

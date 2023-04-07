@@ -8,8 +8,8 @@ use serde::Serialize;
 
 #[derive(Debug, Default, Clone, Serialize, Deserialize)]
 pub struct AI {
-    results: Vec<f64>,
-    weight: Vec<f64>,
+    results: Vec<Vec<f64>>,
+    weight: Vec<Vec<f64>>,
     max_value: f64,
 }
 
@@ -17,7 +17,7 @@ pub trait ToAI {
     fn to_ai(&self) -> AI;
 }
 
-impl ToAI for (Vec<f64>, Vec<f64>, f64) {
+impl ToAI for (Vec<Vec<f64>>, Vec<Vec<f64>>, f64) {
     fn to_ai(&self) -> AI {
         let result = AI {
             results: self.0.clone(),
@@ -31,18 +31,17 @@ impl ToAI for (Vec<f64>, Vec<f64>, f64) {
 
 impl AI {
     // Make a function using an AI model
-    pub fn predict(&self, value: f64) -> f64 {
-        let value_index = vector_tools::closest_value_index(self.results.clone(), value);
-        let value_weights = self.weight[value_index];
-        let weighted_value;
+    pub fn predict(&self, value_vec: Vec<f64>) -> Vec<f64> {
+        let value_index = vector_tools::index_of_closest_vec_in_vec(self.results.clone(), value_vec.clone());
+        let value_weights = self.weight[value_index].clone();
+        let weighted_value = 0.0;
+        let mut prediction = vec![];
 
-        if value * value_weights > self.max_value {
-            weighted_value = self.max_value;
-        } else {
-            weighted_value = value * value_weights;
+        for item in value_vec {
+            prediction.push(item * value_weights[value_index])
         }
 
-        weighted_value
+        prediction
     }
 
     // Save it to the disk

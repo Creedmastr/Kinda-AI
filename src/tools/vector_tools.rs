@@ -27,7 +27,6 @@ pub fn closest_value_index(vec: Vec<f64>, value: f64) -> usize {
     result
 }
 
-// Accuracy of a vector over another vector(for each same index compared to another)
 pub fn vector_accuracy(
     vec1: Vec<f64>,
     vec2: Vec<f64>,
@@ -56,6 +55,22 @@ pub fn vector_accuracy(
     }
 }
 
+// Accuracy of a vector over another vector(for each same index compared to another)
+pub fn vector_vector_accuracy(vec1: Vec<Vec<f64>>, vec2: Vec<Vec<f64>>, max_value: f64) -> Vec<Vec<f64>> {
+    let mut buffer = 0;
+    let mut result: Vec<Vec<f64>> = vec![];
+
+    for _i in vec1.clone() {
+        let item_to_add = vector_accuracy(vec1[buffer].clone(), vec2[buffer].clone(), max_value, false);
+
+        result.push(item_to_add);
+
+        buffer += 1;
+    }
+
+    result
+}
+
 // Average of two vectors (from items with the same index)
 pub fn two_vector_average(vec1: Vec<f64>, vec2: Vec<f64>) -> Vec<f64> {
     if vec1.len() != vec2.len() {
@@ -76,7 +91,7 @@ pub fn two_vector_average(vec1: Vec<f64>, vec2: Vec<f64>) -> Vec<f64> {
     result
 }
 
-fn cosine_similarity(a: &[f64], b: &[f64]) -> f64 {
+pub fn cosine_similarity(a: &[f64], b: &[f64]) -> f64 {
     let dot_product = a.iter().zip(b).map(|(&x, &y)| x * y).sum::<f64>();
     let magnitude_a = (a.iter().map(|x| x.powi(2)).sum::<f64>()).sqrt();
     let magnitude_b = (b.iter().map(|x| x.powi(2)).sum::<f64>()).sqrt();
@@ -88,8 +103,7 @@ fn cosine_similarity(a: &[f64], b: &[f64]) -> f64 {
     }
 }
 
-
-pub fn vec_match(vec: Vec<Vec<f64>>, item: Vec<f64>) -> usize {
+pub fn index_of_closest_vec_in_vec(vec: Vec<Vec<f64>>, item: Vec<f64>) -> usize {
     let mut index: usize = 0;
     let mut current_index: usize = 0;
 
@@ -98,7 +112,7 @@ pub fn vec_match(vec: Vec<Vec<f64>>, item: Vec<f64>) -> usize {
     for _i in &vec {
         let current_similarity = cosine_similarity(&vec[index], &item);
 
-        if  current_similarity > previous_similarity {
+        if current_similarity > previous_similarity {
             previous_similarity = current_similarity;
             current_index = index
         };
@@ -107,4 +121,20 @@ pub fn vec_match(vec: Vec<Vec<f64>>, item: Vec<f64>) -> usize {
     }
 
     current_index
+}
+
+pub trait ToVectorOfVector {
+    fn to_vector_of_vector(self) -> Vec<Vec<f64>>;
+}
+
+impl ToVectorOfVector for Vec<f64> {
+    fn to_vector_of_vector(self) -> Vec<Vec<f64>> {
+        let mut result: Vec<Vec<f64>> = vec![];
+
+        for item in self {
+            result.push(vec![item]);
+        }
+
+        result
+    }
 }
