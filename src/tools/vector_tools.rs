@@ -75,3 +75,36 @@ pub fn two_vector_average(vec1: Vec<f64>, vec2: Vec<f64>) -> Vec<f64> {
 
     result
 }
+
+fn cosine_similarity(a: &[f64], b: &[f64]) -> f64 {
+    let dot_product = a.iter().zip(b).map(|(&x, &y)| x * y).sum::<f64>();
+    let magnitude_a = (a.iter().map(|x| x.powi(2)).sum::<f64>()).sqrt();
+    let magnitude_b = (b.iter().map(|x| x.powi(2)).sum::<f64>()).sqrt();
+
+    if magnitude_a == 0.0 || magnitude_b == 0.0 {
+        0.0
+    } else {
+        dot_product / (magnitude_a * magnitude_b)
+    }
+}
+
+
+pub fn vec_match(vec: Vec<Vec<f64>>, item: Vec<f64>) -> usize {
+    let mut index: usize = 0;
+    let mut current_index: usize = 0;
+
+    let mut previous_similarity: f64 = 0.0;
+
+    for _i in &vec {
+        let current_similarity = cosine_similarity(&vec[index], &item);
+
+        if  current_similarity > previous_similarity {
+            previous_similarity = current_similarity;
+            current_index = index
+        };
+
+        index += 1;
+    }
+
+    current_index
+}
