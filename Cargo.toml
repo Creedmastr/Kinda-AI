@@ -1,6 +1,6 @@
 [package]
 name = "dumb_ai"
-version = "2.0.0"
+version = "2.0.1"
 edition = "2021"
 authors = ["Creedmastr"]
 description = "My own AI, which doesn't work that great, but it still works!"

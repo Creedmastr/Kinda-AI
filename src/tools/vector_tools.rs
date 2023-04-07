@@ -27,6 +27,7 @@ pub fn closest_value_index(vec: Vec<f64>, value: f64) -> usize {
     result
 }
 
+// Accuracy of a vector over another
 pub fn vector_accuracy(
     vec1: Vec<f64>,
     vec2: Vec<f64>,
@@ -55,7 +56,7 @@ pub fn vector_accuracy(
     }
 }
 
-// Accuracy of a vector over another vector(for each same index compared to another)
+// Accuracy of a vector composed of vectors over another vector(for each same index compared to another)
 pub fn vector_vector_accuracy(vec1: Vec<Vec<f64>>, vec2: Vec<Vec<f64>>, max_value: f64, is_averaged: bool) -> Vec<Vec<f64>> {
     let mut buffer = 0;
     let mut result: Vec<Vec<f64>> = vec![];
@@ -91,6 +92,7 @@ pub fn two_vector_average(vec1: Vec<f64>, vec2: Vec<f64>) -> Vec<f64> {
     result
 }
 
+// Give the ressemblance percentage between two vectors
 pub fn cosine_similarity(a: &[f64], b: &[f64]) -> f64 {
     let dot_product = a.iter().zip(b).map(|(&x, &y)| x * y).sum::<f64>();
     let magnitude_a = (a.iter().map(|x| x.powi(2)).sum::<f64>()).sqrt();
@@ -103,6 +105,7 @@ pub fn cosine_similarity(a: &[f64], b: &[f64]) -> f64 {
     }
 }
 
+// Give the index of the closest value (a vector) in a vector of vector (Vec<Vecf64>>)
 pub fn index_of_closest_vec_in_vec(vec: Vec<Vec<f64>>, item: Vec<f64>) -> usize {
     let mut index: usize = 0;
     let mut current_index: usize = 0;
@@ -123,6 +126,7 @@ pub fn index_of_closest_vec_in_vec(vec: Vec<Vec<f64>>, item: Vec<f64>) -> usize 
     current_index
 }
 
+// A trait to be able to return two different types in the test_ai() function
 pub trait ToVectorOfVector {
     fn to_vector_of_vector(self) -> Vec<Vec<f64>>;
 }

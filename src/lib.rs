@@ -34,17 +34,3 @@ pub fn run() {
         test_ai(ai, test_data_first, test_data_second, false),
     ); 
 }
-
-// If you need to save the AI model
-/*train_ai(first_trimester_avg, third_trimester_avg, 20.0, 0.001)
-    .to_ai()
-    .save("./ai");
-
-println!(
-    "{:#?}",
-    test_ai(
-        AI::load_ai_from_file("./ai"),
-        test_data_first,
-        test_data_second
-    )
-); */
