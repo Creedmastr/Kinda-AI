@@ -126,6 +126,28 @@ pub fn index_of_closest_vec_in_vec(vec: Vec<Vec<f64>>, item: Vec<f64>) -> usize 
     current_index
 }
 
+pub trait ToCorrectAmount {
+    fn to_correct_amount(&self, amount: usize) -> Vec<Vec<f64>>;
+}
+
+impl ToCorrectAmount for Vec<Vec<f64>> {
+    // Takes a vector of vector as an input (which has one element per small vector) and transform them into multiple time the same value
+    fn to_correct_amount(&self, amount: usize) -> Vec<Vec<f64>> {
+        let mut result : Vec<Vec<f64>> = vec![];
+    
+        for i in self {
+            let mut current_small_vector = vec![];
+            for _ in 0..amount {
+                current_small_vector.push(i[0]);
+            }
+    
+            result.push(current_small_vector);
+        }
+
+        result
+    }
+}
+
 // A trait to be able to return two different types in the test_ai() function
 pub trait ToVectorOfVector {
     fn to_vector_of_vector(self) -> Vec<Vec<f64>>;

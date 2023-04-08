@@ -8,7 +8,7 @@ use ai::train_ai::*;
 use std::vec;
 use tools::*;
 
-use crate::ai::{ai::ToAI, test_ai::test_ai};
+use crate::{ai::{ai::ToAI, test_ai::test_ai}, tools::vector_tools::{ToVectorOfVector, ToCorrectAmount}};
 
 pub fn run() {
 
@@ -31,6 +31,7 @@ pub fn run() {
 
     println!(
         "{:#?}",
-        test_ai(ai, test_data_first, test_data_second, false),
+        // test_ai(ai, test_data_first, test_data_second, false),
+        vec![0.6, 19.3, 19.3, 10.2].to_vector_of_vector().to_correct_amount(2)
     ); 
 }
