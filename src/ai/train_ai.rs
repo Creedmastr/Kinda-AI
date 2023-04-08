@@ -4,7 +4,7 @@ pub fn train_ai(
     input_vec: Vec<Vec<f64>>,
     output_vec: Vec<Vec<f64>>,
     max_value: f64,
-    generation_number: f64,
+    precision: f64,
 ) -> (Vec<Vec<f64>>, Vec<Vec<f64>>, f64) {
     let mut current_result: f64 = 0.0;
     let mut weight: f64;
@@ -26,7 +26,7 @@ pub fn train_ai(
 
             loop {
                 let mut weighed_input = input * weight;
-                weight += generation_number;
+                weight += precision;
 
                 // Checks to avoid any errors (Rust errors and AI errors)
                 if weighed_input > max_value {
