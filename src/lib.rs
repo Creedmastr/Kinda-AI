@@ -1,14 +1,18 @@
 #![allow(non_snake_case)]
 #![allow(dead_code)]
 
-mod ai;
-mod tools;
+pub mod ais;
+pub mod tools;
 
-use ai::train_ai::*;
-use std::vec;
-use tools::*;
+pub use ais::train_ai::*;
+pub use std::vec;
+pub use tools::*;
+pub use vector_tools::*;
+pub use ais::ai::*;
+pub use ais::train_ai::*;
+pub use ais::test_ai::*;
 
-use crate::{ai::{ai::ToAI, test_ai::test_ai}, tools::vector_tools::{ToVectorOfVector, ToCorrectAmount}};
+pub use crate::{ais::{ai::ToAI, test_ai::test_ai}, tools::vector_tools::{ToVectorOfVector, ToCorrectAmount}};
 
 pub fn run() {
     let first_trimester_avg = vec![
