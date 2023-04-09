@@ -11,7 +11,6 @@ use tools::*;
 use crate::{ai::{ai::ToAI, test_ai::test_ai}, tools::vector_tools::{ToVectorOfVector, ToCorrectAmount}};
 
 pub fn run() {
-
     let first_trimester_avg = vec![
         vec![16.4, 12.2], vec![18.4, 15.5], vec![19.2, 18.7],vec![12.4, 11.2], vec![19.4, 18.5], vec![7.2, 9.7]
     ];
