@@ -14,7 +14,7 @@ pub fn train_ai(
     let mut inferior_buffer = 0;
     let mut superior_buffer = 0;
 
-    print!("<");   
+    print!("<");
     // Check for each vector in the vector 'collection'
     for item in input_vec {
         let mut current_weight_vec: Vec<f64> = vec![];
@@ -41,7 +41,11 @@ pub fn train_ai(
                     inferior_buffer = output_vec.len();
                 }
 
-                if is_closer_to(output_vec[superior_buffer][inferior_buffer], weighed_input, current_result) {
+                if is_closer_to(
+                    output_vec[superior_buffer][inferior_buffer],
+                    weighed_input,
+                    current_result,
+                ) {
                     current_result_weight = weight;
                     current_result = weighed_input;
                 }

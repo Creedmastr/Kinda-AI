@@ -32,7 +32,8 @@ impl ToAI for (Vec<Vec<f64>>, Vec<Vec<f64>>, f64) {
 impl AI {
     // Make a function using an AI model
     pub fn predict(&self, value_vec: Vec<f64>) -> Vec<f64> {
-        let value_index = vector_tools::index_of_closest_vec_in_vec(self.results.clone(), value_vec.clone());
+        let value_index =
+            vector_tools::index_of_closest_vec_in_vec(self.results.clone(), value_vec.clone());
         let value_weights = self.weight[value_index].clone();
         let mut prediction = vec![];
         let mut buffer = 0;

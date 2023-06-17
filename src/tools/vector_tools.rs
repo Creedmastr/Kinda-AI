@@ -57,12 +57,22 @@ pub fn vector_accuracy(
 }
 
 // Accuracy of a vector composed of vectors over another vector(for each same index compared to another)
-pub fn vector_vector_accuracy(vec1: Vec<Vec<f64>>, vec2: Vec<Vec<f64>>, max_value: f64, is_averaged: bool) -> Vec<Vec<f64>> {
+pub fn vector_vector_accuracy(
+    vec1: Vec<Vec<f64>>,
+    vec2: Vec<Vec<f64>>,
+    max_value: f64,
+    is_averaged: bool,
+) -> Vec<Vec<f64>> {
     let mut buffer = 0;
     let mut result: Vec<Vec<f64>> = vec![];
 
     for _i in vec1.clone() {
-        let item_to_add = vector_accuracy(vec1[buffer].clone(), vec2[buffer].clone(), max_value, is_averaged);
+        let item_to_add = vector_accuracy(
+            vec1[buffer].clone(),
+            vec2[buffer].clone(),
+            max_value,
+            is_averaged,
+        );
 
         result.push(item_to_add);
 
@@ -133,14 +143,14 @@ pub trait ToCorrectAmount {
 impl ToCorrectAmount for Vec<Vec<f64>> {
     // Takes a vector of vector as an input (which has one element per small vector) and transform them into multiple time the same value
     fn to_correct_amount(&self, amount: usize) -> Vec<Vec<f64>> {
-        let mut result : Vec<Vec<f64>> = vec![];
-    
+        let mut result: Vec<Vec<f64>> = vec![];
+
         for i in self {
             let mut current_small_vector = vec![];
             for _ in 0..amount {
                 current_small_vector.push(i[0]);
             }
-    
+
             result.push(current_small_vector);
         }
 

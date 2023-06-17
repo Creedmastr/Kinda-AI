@@ -1,4 +1,4 @@
-use crate::tools::vector_tools::{vector_vector_accuracy, vec_average};
+use crate::tools::vector_tools::{vec_average, vector_vector_accuracy};
 
 use super::ai::AI;
 
@@ -12,7 +12,7 @@ pub fn test_ai(
     ai: AI,
     test_data: Vec<Vec<f64>>,
     test_data_output: Vec<Vec<f64>>,
-    is_averaged: bool
+    is_averaged: bool,
 ) -> TestResult {
     let mut predictions = vec![];
 
@@ -27,10 +27,21 @@ pub fn test_ai(
     print!(">\n");
 
     // Accuracy
-    if is_averaged == true {
-        TestResult::Float(vec_average(vector_vector_accuracy(predictions, test_data_output, 20.0, is_averaged)[0].as_ref()))
-    } else {
-        TestResult::Vec2D(vector_vector_accuracy(predictions, test_data_output, 20.0, false))
+    match is_averaged {
+        true => {
+            return TestResult::Float(vec_average(
+                vector_vector_accuracy(predictions, test_data_output, 20.0, is_averaged)[0]
+                    .as_ref(),
+            ));
+        }
+
+        false => {
+            return TestResult::Vec2D(vector_vector_accuracy(
+                predictions,
+                test_data_output,
+                20.0,
+                false,
+            ));
+        }
     }
 }
-
