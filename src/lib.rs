@@ -39,7 +39,7 @@ pub fn run() {
 
     let test_data_second = vec![vec![19.2, 18.2], vec![18.9, 17.3], vec![16.5, 12.6]];
 
-    let ai = train_ai(first_trimester_avg, third_trimester_avg, 20.0, 0.0001).to_ai();
+    let ai = train_ai(first_trimester_avg, third_trimester_avg, 20.0, 0.0001, false).to_ai();
 
     println!(
         "{:#?}",

@@ -5,6 +5,7 @@ pub fn train_ai(
     output_vec: Vec<Vec<f64>>,
     max_value: f64,
     precision: f64,
+    is_fast: bool,
 ) -> (Vec<Vec<f64>>, Vec<Vec<f64>>, f64) {
     let mut current_result: f64 = 0.0;
     let mut weight: f64;
@@ -23,38 +24,48 @@ pub fn train_ai(
         // Check for each f64
         for &input in &item {
             weight = 0.0;
-
-            loop {
-                let mut weighed_input = input * weight;
-                weight += precision;
-
-                // Checks to avoid any errors (Rust errors and AI errors)
-                if weighed_input > max_value {
-                    weighed_input = max_value;
+            
+            match is_fast {
+                true => {
+                    current_result_weight = input / output_vec[superior_buffer][inferior_buffer];
+                    current_result = input * current_result_weight;
                 }
 
-                if superior_buffer >= output_vec.len() {
-                    superior_buffer = output_vec.len();
-                }
-
-                if inferior_buffer >= item.len() {
-                    inferior_buffer = output_vec.len();
-                }
-
-                if is_closer_to(
-                    output_vec[superior_buffer][inferior_buffer],
-                    weighed_input,
-                    current_result,
-                ) {
-                    current_result_weight = weight;
-                    current_result = weighed_input;
-                }
-
-                // Add a limit to the loop (of 5)
-                if weight > 5.0 {
-                    break;
+                false => {
+                    loop {
+                        let mut weighed_input = input * weight;
+                        weight += precision;
+        
+                        // Checks to avoid any errors (Rust errors and AI errors)
+                        if weighed_input > max_value {
+                            weighed_input = max_value;
+                        }
+        
+                        if superior_buffer >= output_vec.len() {
+                            superior_buffer = output_vec.len();
+                        }
+        
+                        if inferior_buffer >= item.len() {
+                            inferior_buffer = output_vec.len();
+                        }
+        
+                        if is_closer_to(
+                            output_vec[superior_buffer][inferior_buffer],
+                            weighed_input,
+                            current_result,
+                        ) {
+                            current_result_weight = weight;
+                            current_result = weighed_input;
+                        }
+        
+                        // Add a limit to the loop (of 5)
+                        if weight > 5.0 {
+                            break;
+                        }
+                    }
                 }
             }
+
 
             current_weight_vec.push(current_result_weight);
             current_result_vec.push(current_result);
